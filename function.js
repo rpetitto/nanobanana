@@ -25,12 +25,12 @@ window.function = async function (prompt, geminiApiKey, imgbbApiKey) {
           "x-goog-api-key": geminiKey
         },
         body: JSON.stringify({
-    "contents": [{
-      "parts": [
-        {"text": promptText}
-      ]
-    }]
-  }),
+          contents: [{
+            parts: [
+              { text: promptText }
+            ]
+          }]
+        }),
       }
     );
 
@@ -42,11 +42,24 @@ window.function = async function (prompt, geminiApiKey, imgbbApiKey) {
     const geminiData = await geminiResponse.json();
     
     // Extract base64 image from response
-    if (!geminiData.generatedImages || geminiData.generatedImages.length === 0) {
-      throw new Error("No image generated");
+    if (!geminiData.candidates || geminiData.candidates.length === 0) {
+      throw new Error("No candidates in response");
     }
 
-    const base64Image = geminiData.generatedImages[0].image.imageBytes;
+    const parts = geminiData.candidates[0].content.parts;
+    let base64Image = null;
+
+    // Find the image part in the response
+    for (const part of parts) {
+      if (part.inlineData && part.inlineData.mimeType.startsWith('image/')) {
+        base64Image = part.inlineData.data;
+        break;
+      }
+    }
+
+    if (!base64Image) {
+      throw new Error("No image generated in response");
+    }
 
     // Step 2: Upload base64 image to imgbb
     const formData = new FormData();
