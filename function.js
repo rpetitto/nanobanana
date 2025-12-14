@@ -22,7 +22,7 @@ window.function = async function (prompt, geminiApiKey, imgbbApiKey) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-goog-api-key": ${geminiKey}
+          "x-goog-api-key": geminiKey
         },
         body: JSON.stringify({
     "contents": [{
