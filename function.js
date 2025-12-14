@@ -17,19 +17,20 @@ window.function = async function (prompt, geminiApiKey, imgbbApiKey) {
 
     // Step 1: Generate image with Google Gemini
     const geminiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-001:generateImage?key=${geminiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-goog-api-key": ${geminiKey}
         },
         body: JSON.stringify({
-          prompt: promptText,
-          config: {
-            numberOfImages: 1,
-            aspectRatio: "1:1"
-          }
-        }),
+    "contents": [{
+      "parts": [
+        {"text": promptText}
+      ]
+    }]
+  }),
       }
     );
 
