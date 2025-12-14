@@ -1,0 +1,28 @@
+[
+  {
+    "kind": "column",
+    "name": "Gemini Image Generator",
+    "description": "Generate images using Google Gemini AI and get a public URL",
+    "author": "Your Name",
+    "params": [
+      {
+        "name": "prompt",
+        "displayName": "Image Prompt",
+        "type": "string"
+      },
+      {
+        "name": "geminiApiKey",
+        "displayName": "Gemini API Key",
+        "type": "string"
+      },
+      {
+        "name": "imgbbApiKey",
+        "displayName": "imgbb API Key",
+        "type": "string"
+      }
+    ],
+    "result": {
+      "type": "string"
+    }
+  }
+]
